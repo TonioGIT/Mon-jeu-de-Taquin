@@ -10,6 +10,7 @@ let cases = [
 
 let casesTemp = [];
 
+
 // $(".i2 .j2").html(cases[2][3]);
 // console.log(cases[2][1]);
 
@@ -22,7 +23,6 @@ function fillTable() {
 		}
 	}
 }
-
 
 function getVposition() {
 	for (let i=0; i <4; i++) {

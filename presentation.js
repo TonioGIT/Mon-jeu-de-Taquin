@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-	fillTable();	
+	fillTable();
 
 
 
@@ -25,45 +25,15 @@ $(document).ready(function () {
 		console.log(result);
 
 		if(result === true) {
-			// let iTemp = iClicked;
-			// let jTemp = jClicked;
-			// 							console.log(iTemp);
-			// 							console.log(jTemp);
-			// iClicked = vPosition.iV;
-			// jClicked = vPosition.jV;
-			// 							console.log(iClicked);
-			// 							console.log(jClicked);
-			// vPosition.iV = iTemp;
-			// vPosition.jV = jTemp;
-			// 							console.log(vPosition.iV);
-			// 							console.log(vPosition.jV);
 
-			cases[iClicked][jClicked] = valV;
-										// console.log(cases[iClicked][jClicked]);
-			cases[vPosition.iV][vPosition.jV] = valClicked
-										// console.log(cases[vPosition.iV][vPosition.jV]);
-
+			cases[iClicked][jClicked] = valV;									
+			cases[vPosition.iV][vPosition.jV] = valClicked;
 			fillTable();
 		}
-
 		else {
 			alert('Impossible de déplacer cette case !!!')
 		}
 	}
-
-
-	// function randomMix(cases) {
-	//     for(var i = 0; i< cases.length; i++) {
-	//        k = cases[i].length;
-	//        while(k--){
-	//             j = Math.floor(Math.random() * (cases.length - 1));
-	//             tempk = cases[i][k];
-	//             tempj = cases[i][j];
-	//             cases[i][k] = tempj;
-	//             cases[i][j] = tempk;
-	//        }
-	//     }
-	// }
 
 	$('#mel').click(function() {		
 		change2DarrayTo1Darray(cases);
@@ -71,7 +41,7 @@ $(document).ready(function () {
 		console.log(casesTemp);
 		change1DarrayTo2Darray();
 		console.log(cases);
-		fillTable();
+		fillTable();		
 		casesTemp = [];		
 	})
 
@@ -81,8 +51,7 @@ $(document).ready(function () {
 		  [5, 6, 7, 8],
 		  [9, 10, 11, 12],
 		  [13, 14, 15, ''],
-		];
-		casesTemp = [];		
+		];		
 		fillTable();
 	})
 
