@@ -18,6 +18,37 @@ $(document).ready(function () {
 		}
 	}
 
+	function permutable2(i,j,vPosition) {
+
+		if(i == vPosition.iV) {
+			return (j+1 == vPosition.jV || j-1 == vPosition.jV)
+		}
+		else if(j == vPosition.jV) {			
+			return (i+1 == vPosition.iV || i-1 == vPosition.iV) 
+		}		
+		else {			
+			return false;
+		}
+	}
+
+	function stockPermutableCases(vPosition) {
+		for (let i=0; i <4; i++) {
+			for (let j=0; j<4; j++) {
+				result = permutable2(i, j, vPosition)
+				if (result == true) {
+					permutableCases.push([i, j]);
+				}
+			}
+		}
+		console.log(result);
+		console.log(permutableCases);
+	}
+
+	function randomSelectInPermutableCases() {
+		let randomItem = permutableCases[Math.floor(Math.random()*permutableCases.length)];
+		return randomItem;
+	}
+
 	function permute(iClicked,jClicked,vPosition,valClicked,valV) {
 
 		result = permutable(iClicked,jClicked,vPosition);
@@ -35,14 +66,40 @@ $(document).ready(function () {
 		}
 	}
 
+	function permute2(i,j,vPosition) {		
+
+			cases[vPosition.iV][vPosition.jV] = cases[i][j];
+			cases[i][j] = '';
+			fillTable();					
+	}
+
+	function getRandomNumber() {
+		let rn = Math.floor((Math.random() * 1000) + 1);
+		return rn;
+	}
+
 	$('#mel').click(function() {		
 		change2DarrayTo1Darray(cases);
-		mix2Darray();
+		mix1Darray();
 		console.log(casesTemp);
 		change1DarrayTo2Darray();
 		console.log(cases);
 		fillTable();		
 		casesTemp = [];		
+	})
+
+	$('#mel2').click(function() {
+		x = getRandomNumber();
+
+		for(let i=0; i < x; i++) {
+		console.log(x);
+		let vPosition = getVposition();
+		stockPermutableCases(vPosition);
+		r = randomSelectInPermutableCases();
+		console.log(r);
+		permute2(r[0],r[1],vPosition);
+		permutableCases = [];
+		}
 	})
 
 	$('#res').click(function() {		
@@ -63,7 +120,7 @@ $(document).ready(function () {
 		}			
 	}
 
-	function mix2Darray() {
+	function mix1Darray() {
 		for (let i = casesTemp.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = casesTemp[i];

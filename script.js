@@ -9,6 +9,7 @@ let cases = [
 ];
 
 let casesTemp = [];
+let permutableCases = [];
 
 
 // $(".i2 .j2").html(cases[2][3]);
