@@ -8,7 +8,7 @@ let cases = [
   [13, 14, 15, ''],
 ];
 
-// cases[0][0] = 666;
+let casesTemp = [];
 
 // $(".i2 .j2").html(cases[2][3]);
 // console.log(cases[2][1]);

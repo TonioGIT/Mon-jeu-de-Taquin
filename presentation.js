@@ -25,24 +25,23 @@ $(document).ready(function () {
 		console.log(result);
 
 		if(result === true) {
-			let iTemp = iClicked;
-			let jTemp = jClicked;
-										console.log(iTemp);
-										console.log(jTemp);
-			iClicked = vPosition.iV;
-			jClicked = vPosition.jV;
-										console.log(iClicked);
-										console.log(jClicked);
-			vPosition.iV = iTemp;
-			vPosition.jV = jTemp;
-										console.log(vPosition.iV);
-										console.log(vPosition.jV);
+			// let iTemp = iClicked;
+			// let jTemp = jClicked;
+			// 							console.log(iTemp);
+			// 							console.log(jTemp);
+			// iClicked = vPosition.iV;
+			// jClicked = vPosition.jV;
+			// 							console.log(iClicked);
+			// 							console.log(jClicked);
+			// vPosition.iV = iTemp;
+			// vPosition.jV = jTemp;
+			// 							console.log(vPosition.iV);
+			// 							console.log(vPosition.jV);
 
-			cases[iClicked][jClicked] = valClicked;
-										console.log(cases[iClicked][jClicked]);
-
-			cases[vPosition.iV][vPosition.jV] = valV
-										console.log(cases[vPosition.iV][vPosition.jV]);
+			cases[iClicked][jClicked] = valV;
+										// console.log(cases[iClicked][jClicked]);
+			cases[vPosition.iV][vPosition.jV] = valClicked
+										// console.log(cases[vPosition.iV][vPosition.jV]);
 
 			fillTable();
 		}
@@ -50,8 +49,67 @@ $(document).ready(function () {
 		else {
 			alert('Impossible de déplacer cette case !!!')
 		}
+	}
 
 
+	// function randomMix(cases) {
+	//     for(var i = 0; i< cases.length; i++) {
+	//        k = cases[i].length;
+	//        while(k--){
+	//             j = Math.floor(Math.random() * (cases.length - 1));
+	//             tempk = cases[i][k];
+	//             tempj = cases[i][j];
+	//             cases[i][k] = tempj;
+	//             cases[i][j] = tempk;
+	//        }
+	//     }
+	// }
+
+	$('#mel').click(function() {		
+		change2DarrayTo1Darray(cases);
+		mix2Darray();
+		console.log(casesTemp);
+		change1DarrayTo2Darray();
+		console.log(cases);
+		fillTable();
+		casesTemp = [];		
+	})
+
+	$('#res').click(function() {		
+		cases = [
+		  [1, 2, 3, 4],
+		  [5, 6, 7, 8],
+		  [9, 10, 11, 12],
+		  [13, 14, 15, ''],
+		];
+		casesTemp = [];		
+		fillTable();
+	})
+
+	function change2DarrayTo1Darray() {
+		for (let i=0; i <4; i++) {
+			for (let j=0; j<4; j++) {
+				casesTemp.push(cases[i][j]);
+			}
+		}			
+	}
+
+	function mix2Darray() {
+		for (let i = casesTemp.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = casesTemp[i];
+        casesTemp[i] = casesTemp[j];
+        casesTemp[j] = temp;
+		}		
+	}
+
+	function change1DarrayTo2Darray() {		
+		for (let i=0; i <4; i++) {
+			for (let j=0; j<4; j++) {
+				let k = 4*i +j;					
+				cases[i][j] = casesTemp[k];
+			}
+		}
 	}
 
 
