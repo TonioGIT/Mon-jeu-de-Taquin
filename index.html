@@ -12,7 +12,7 @@
 		<style>
       table, td {
         border: 5px solid black;    
-        background-color: #12b3ae;
+        background-color: #9999ff;
         margin-left: 400px;
       }
       td {        
@@ -23,7 +23,7 @@
       }
       button {
         border: 5px solid black;    
-        background-color: #6666ff;
+        background-color: #9966ff;
         margin-left: 400px;
         font-size: 16px;
       }
@@ -33,8 +33,9 @@
 	<body>
 		<div class="flexbox">
 			<div>			
-				<h1>Jeu "Le TAQUIN" Tonio...</h1>
-				<h2>A vous de jouer !</h2>				
+				<h1>Jeu "Le TAQUIN" de Tonio...</h1>
+				<h2>A vous de jouer !</h2>             
+        <h1 id="vic"></h1>			
 			</div>
 		</div>
 		<table >
@@ -79,12 +80,16 @@
       </tbody> 
 		</table>
     <br>
-    <button id="mel">MELANGER mais possibilité d'insolvabilité !</button>
+    <button id="mel">MELANGER mais possibilité de Taquin impossible !</button>
     <br>
     <br>
     <button id="mel2">MELANGER mais vous êtes certain de pouvoir gagner.</button>
     <br>
     <br>
-    <button id="res">RESET</button>    
+    <button id="res">RESET</button>
+    <br>
+    <br>
+    <button id="test">TEST (Taquin possible ou impossible  ?)</button>
+    <h2 id = "resultTest"></h2>
 	</body>
 </html>

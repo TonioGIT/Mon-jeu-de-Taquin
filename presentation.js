@@ -59,11 +59,12 @@ $(document).ready(function () {
 
 			cases[iClicked][jClicked] = valV;									
 			cases[vPosition.iV][vPosition.jV] = valClicked;
-			fillTable();
+			fillTable();			
 		}
 		else {
 			alert('Impossible de déplacer cette case !!!')
 		}
+		checkVictory();
 	}
 
 	function permute2(i,j,vPosition) {		
@@ -78,29 +79,45 @@ $(document).ready(function () {
 		return rn;
 	}
 
-	$('#mel').click(function() {		
+	function checkVictory() {
+		for (let i=0; i <4; i++) {
+			for (let j=0; j<4; j++) {
+				if(casesReference[i][j] != cases[i][j]) {
+					return false;
+				}				
+			}
+		}
+		$("#vic").html('------------------------------------------------> VICTORY !!!');
+		// alert('VICTORY !!!');
+		return true;				
+	}
+	
+	$('#mel').click(function() {
 		change2DarrayTo1Darray(cases);
 		mix1Darray();
 		console.log(casesTemp);
 		change1DarrayTo2Darray();
 		console.log(cases);
-		fillTable();		
-		casesTemp = [];		
+		fillTable();
+		casesTemp = [];
+		$('#resultTest').html('');
 	})
 
 	$('#mel2').click(function() {
 		x = getRandomNumber();
 
 		for(let i=0; i < x; i++) {
-		console.log(x);
-		let vPosition = getVposition();
-		stockPermutableCases(vPosition);
-		r = randomSelectInPermutableCases();
-		console.log(r);
-		permute2(r[0],r[1],vPosition);
-		permutableCases = [];
+			console.log(x);
+			let vPosition = getVposition();
+			stockPermutableCases(vPosition);
+			r = randomSelectInPermutableCases();
+			console.log(r);
+			permute2(r[0],r[1],vPosition);
+			casesTemp = [];
+			permutableCases = [];
+			$('#resultTest').html('');
 		}
-	})
+	})	
 
 	$('#res').click(function() {		
 		cases = [
@@ -110,6 +127,10 @@ $(document).ready(function () {
 		  [13, 14, 15, ''],
 		];		
 		fillTable();
+		$("#vic").html('');
+		$('#resultTest').html('');
+		casesTemp = [];
+		permutableCases = [];
 	})
 
 	function change2DarrayTo1Darray() {
@@ -138,6 +159,73 @@ $(document).ready(function () {
 		}
 	}
 
+	function parityTableau() {
+
+		change2DarrayTo1Darray();
+		
+		let l = casesTemp.length;
+		let compteur = 0;
+		for (i=0;i<l-1;i++) {  
+    		j_max=i;
+    		c_max=casesTemp[i];    		
+    		for (j=i+1;j<l;j++) { 
+        		if (casesTemp[j]<c_max) {
+            		j_max=j;
+            		c_max=casesTemp[j];             		         		            		
+        		}
+    		}
+    	casesTemp[j_max]=casesTemp[i];
+    		if(j_max != i) {
+    			compteur = compteur +1;
+    		}
+    	casesTemp[i]=c_max;
+		}
+		// console.log(compteur);		
+		// console.log(casesTemp);
+		return compteur;
+	}
+
+	function parityV() {
+		let vPosition = getVposition();	
+		// console.log(vPosition.iV);
+		// console.log(vPosition.jV);	
+		let parity = (3 - vPosition.iV) + (3 - vPosition.jV);
+		// console.log(parity);
+		return parity;
+	}
+
+	function isEven(n) {
+   		return n % 2 == 0;
+	}
+
+	function isOdd(n) {
+  		 return Math.abs(n % 2) == 1;
+	}
+
+
+	$('#test').click(function() {
+
+		// parityV();
+		// parityTableau();
+		casesTemp = [];
+
+		let a = parityV();
+		let b = parityTableau();
+		console.log(a);
+		console.log(b);
+		let aa = isOdd(a);
+		let bb = isOdd(b);
+		console.log(aa);
+		console.log(bb);
+		if(aa == true && bb == true || aa == false && bb == false) {
+			$('#resultTest').html('-----------> OK, on peut résoudre ce Taquin !');
+		}
+		else {
+			$('#resultTest').html('-----------> IMPOSSIBLE de résoudre ce Taquin !!!');
+		}
+		// let casesTemp = [];
+		// let permutableCases = [];
+	})
 
 
 	$('td').click(function() {
@@ -161,6 +249,7 @@ $(document).ready(function () {
 		// // console.log(vPosition.iV);
 		// result = permutable(iClicked,jClicked,vPosition);
 		// console.log(result);
+		
 		
 	})
 
