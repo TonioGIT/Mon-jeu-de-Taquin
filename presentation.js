@@ -115,8 +115,8 @@ $(document).ready(function () {
 			permute2(r[0],r[1],vPosition);
 			casesTemp = [];
 			permutableCases = [];
-			$('#resultTest').html('');
 		}
+		$('#resultTest').html('');
 	})	
 
 	$('#res').click(function() {		
@@ -217,7 +217,7 @@ $(document).ready(function () {
 		let bb = isOdd(b);
 		console.log(aa);
 		console.log(bb);
-		if(aa == true && bb == true || aa == false && bb == false) {
+		if(aa == bb) {
 			$('#resultTest').html('-----------> OK, on peut résoudre ce Taquin !');
 		}
 		else {
