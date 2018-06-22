@@ -19,6 +19,9 @@ let casesReference = [
 
 let casesTemp = [];
 let permutableCases = [];
+let casesCopy = [];
+let nbreCoups = 0;
+
 
 
 // $(".i2 .j2").html(cases[2][3]);
@@ -34,10 +37,10 @@ function fillTable() {
 	}
 }
 
-function getVposition() {
+function getVposition(tab) {
 	for (let i=0; i <4; i++) {
 		for (let j=0; j<4; j++) {
-			if(cases[i][j] == '') {
+			if(tab[i][j] == '') {
 				let iV = i;
 				let jV = j;
 				return {"iV": iV, "jV": jV};
@@ -45,3 +48,26 @@ function getVposition() {
 		}
 	}
 }
+
+function copyTableau(tableau) {
+	let result = []
+	for (let i=0; i<tableau.length; i++) {
+		result[i] = []
+		for (let j =0; j<tableau.length; j++) {
+			result[i][j] = tableau[i][j];
+		}
+	}
+	return result;
+}
+
+// function getVposition2() {
+// 	for (let i=0; i <4; i++) {
+// 		for (let j=0; j<4; j++) {
+// 			if(casesCopy[i][j] == '') {
+// 				let iV = i;
+// 				let jV = j;
+// 				return {"iV": iV, "jV": jV};
+// 			}
+// 		}
+// 	}
+// }

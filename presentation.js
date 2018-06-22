@@ -31,6 +31,207 @@ $(document).ready(function () {
 		}
 	}
 
+
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+	
+	$('#sol').click(function() {
+
+		// up();
+		// down();
+		// left();
+		// right();
+		let connus = [];
+		let resultAuto = DFS(cases, 5, 1, 0, connus);
+
+		console.log(resultAuto);
+
+		// $("#debug").html('toto');
+	})
+
+	function up(cases) {
+		// console.log('cases:', cases);		
+		vPosition = getVposition(cases);
+
+		if(vPosition.iV - 1 >= 0)  {
+			let i = vPosition.iV - 1;
+			let j = vPosition.jV;
+			casesCopy = copyTableau(cases);
+			permute3(i,j,vPosition);
+			return casesCopy;			
+		}
+		else {
+			// alert('impossible...');
+			return null;
+		}	
+	}
+
+	function down(cases) {
+		vPosition = getVposition(cases);
+
+		if(vPosition.iV + 1 < 4) {
+			let i = vPosition.iV + 1;
+			let j = vPosition.jV;
+			casesCopy = copyTableau(cases);
+			permute3(i,j,vPosition);	
+			return casesCopy;			
+		}
+		else {
+			// alert('impossible...');
+			return null;
+		}	
+	}
+
+	function left(cases) {
+		vPosition = getVposition(cases);
+
+		if(vPosition.jV - 1 >= 0) {
+			let i = vPosition.iV;
+			let j = vPosition.jV - 1;
+			casesCopy = copyTableau(cases);
+			permute3(i,j,vPosition);
+			return casesCopy;				
+		}
+		else {
+			// alert('impossible...');
+			return null;
+		}	
+	}
+
+	function right(cases) {
+		vPosition = getVposition(cases);
+
+		if(vPosition.jV + 1 < 4) {
+			let i = vPosition.iV;
+			let j = vPosition.jV + 1;
+			casesCopy = copyTableau(cases);
+			permute3(i,j,vPosition);
+			return casesCopy;				
+		}
+		else {
+			// alert('impossible...');
+			return null;
+		}	
+	}
+
+	function permute3(i,j,vPosition) {
+			
+			casesCopy[vPosition.iV][vPosition.jV] = casesCopy[i][j];
+			casesCopy[i][j] = '';
+			return casesCopy;
+			// console.log('cases2:', cases2);
+			// console.log('cases:', cases);
+	}
+
+	
+	function DFS(e, max, p, nbreCoups, connus) {
+
+		// ajouter e aux connus
+		// console.log(connus);
+
+		eTs = e.toString();
+		// console.log(eTs);
+		connus.push(eTs);
+		console.log('nbconnus='+connus.length);
+			
+		if (p > max) {
+			return false;
+		}		
+
+		if(checkVictory2(e)) {
+			console.log('Taquin résolu automatiquement !!!');
+			console.log(nbreCoups);
+			$("#debug").html('-------------> Taquin résolu automatiquement !!!');
+			return true;
+		}
+
+		let eUp = up(e);
+		if(eUp) { // le mouvement est possible
+
+			//console.log('UP');
+			// si eUp n'est pas connu alors :
+			// console.log(eUp);
+			let uTs = eUp.toString();
+			// console.log(uTs);
+			// console.log(uTs.indexOf(connus));
+			if(connus.indexOf(uTs) == -1) {
+				nbreCoups++;
+				let subResult = DFS(eUp, max, p+1, nbreCoups, connus);
+				if (subResult) {
+					console.log('U');
+					return true;
+				}
+			}	
+		}
+
+		let eLeft = left(e);
+		if(eLeft) {
+
+			//console.log('LEFT');
+
+			let lTs = eLeft.toString();
+			if(connus.indexOf(lTs) == -1) {
+				nbreCoups++;
+				let subResult = DFS(eLeft, max, p+1, nbreCoups, connus);
+				if (subResult) {
+					console.log('L');
+					return true;
+				}
+			}	
+		}
+
+		let eDown = down(e);
+		if(eDown) {
+
+			//console.log('DOWN');
+
+			let dTs = eDown.toString();
+			if(connus.indexOf(dTs) == -1) {
+				nbreCoups++;
+				let subResult = DFS(eDown, max, p+1, nbreCoups, connus);
+				if (subResult) {
+					console.log('D');
+					return true;
+				}
+			}	
+		}
+
+		let eRight = right(e);
+		if(eRight) {
+
+			//console.log('RIGHT');
+
+			let rTs = eRight.toString();
+			if(connus.indexOf(rTs) == -1) {
+				nbreCoups++;
+				let subResult = DFS(eRight, max, p+1, nbreCoups, connus);
+				if (subResult) {
+					console.log('R');
+					return true;
+				}
+			}	
+		}
+
+		return false;
+
+	}
+
+
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+
+
+
 	function stockPermutableCases(vPosition) {
 		for (let i=0; i <4; i++) {
 			for (let j=0; j<4; j++) {
@@ -53,7 +254,7 @@ $(document).ready(function () {
 
 		result = permutable(iClicked,jClicked,vPosition);
 
-		console.log(result);
+		// console.log(result);
 
 		if(result === true) {
 
@@ -71,7 +272,7 @@ $(document).ready(function () {
 
 			cases[vPosition.iV][vPosition.jV] = cases[i][j];
 			cases[i][j] = '';
-			fillTable();					
+			fillTable();
 	}
 
 	function getRandomNumber() {
@@ -91,15 +292,29 @@ $(document).ready(function () {
 		// alert('VICTORY !!!');
 		return true;				
 	}
+
+	function checkVictory2(t) {
+		for (let i=0; i <4; i++) {
+			for (let j=0; j<4; j++) {
+				if(casesReference[i][j] != t[i][j]) {
+					return false;
+				}				
+			}
+		}
+		// $("#vic").html('---------> VICTORY (Taquin résolu automatiquement) !!!');
+		// alert('VICTORY !!!');
+		return true;				
+	}
 	
 	$('#mel').click(function() {
 		change2DarrayTo1Darray(cases);
 		mix1Darray();
-		console.log(casesTemp);
+		// console.log(casesTemp);
 		change1DarrayTo2Darray();
-		console.log(cases);
+		console.log('cases:', cases);
 		fillTable();
 		casesTemp = [];
+		casesCopy = copyTableau(cases);
 		$('#resultTest').html('');
 	})
 
@@ -114,6 +329,7 @@ $(document).ready(function () {
 			console.log(r);
 			permute2(r[0],r[1],vPosition);
 			casesTemp = [];
+			casesCopy = copyTableau(cases);
 			permutableCases = [];
 		}
 		$('#resultTest').html('');
@@ -129,6 +345,7 @@ $(document).ready(function () {
 		fillTable();
 		$("#vic").html('');
 		$('#resultTest').html('');
+		$("#debug").html('-----DEBUG BAR-----'); 
 		casesTemp = [];
 		permutableCases = [];
 	})
@@ -234,15 +451,15 @@ $(document).ready(function () {
 		let jClicked = parseInt($(this).attr("j"));
 		let valClicked = cases[iClicked][jClicked];
 
-		console.log(valClicked);
+		// console.log(valClicked);
 
 		// console.log(iClicked);
 		// console.log(jClicked);
 
-		let vPosition = getVposition();
+		let vPosition = getVposition(cases);
 		let valV = cases[vPosition.iV][vPosition.jV];
 
-		console.log(valV);
+		// console.log(valV);
 
 		permute(iClicked,jClicked,vPosition,valClicked,valV);
 		// console.log(vPosition);

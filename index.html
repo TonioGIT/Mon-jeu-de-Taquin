@@ -3,7 +3,7 @@
 	<!--Page principale-->
 	<head>
 		<meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="presentation.js"></script>
@@ -12,7 +12,7 @@
 		<style>
       table, td {
         border: 5px solid black;    
-        background-color: #9999ff;
+        background-color: #29a329;
         margin-left: 400px;
       }
       td {        
@@ -26,6 +26,11 @@
         background-color: #9966ff;
         margin-left: 400px;
         font-size: 16px;
+      }
+
+      h2 {
+        margin-left: 400px;
+        font-size: 30px;
       }
     </style>    
 	</head>
@@ -90,6 +95,11 @@
     <br>
     <br>
     <button id="test">TEST (Taquin possible ou impossible  ?)</button>
-    <h2 id = "resultTest"></h2>
+    <h2 id = "resultTest"></h2>     
+    <button id="sol">Résolution automatique.</button>
+    <div>
+      <h2 id = "debug">-----DEBUG BAR-----
+      </h2>
+    </div>
 	</body>
 </html>
